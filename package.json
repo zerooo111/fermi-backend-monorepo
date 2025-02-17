@@ -10,6 +10,8 @@
     "start:event-listener": "node src/event-listener/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "test:kafka": "node src/shared/kafka/test.js",
+    "test:solana": "node src/shared/solana/test.js",
+    "test:tsdb": "node src/shared/tsdb/test.js",
     "format": "biome format --write .",
     "lint": "biome lint .",
     "check": "biome check --write ."
@@ -18,7 +20,10 @@
     "type": "git",
     "url": "git+https://github.com/zerooo111/fermi-backend-monorepo.git"
   },
-  "keywords": ["fermi", "solana"],
+  "keywords": [
+    "fermi",
+    "solana"
+  ],
   "author": "",
   "license": "MIT",
   "bugs": {
@@ -29,9 +34,10 @@
     "@biomejs/biome": "^1.9.4"
   },
   "dependencies": {
+    "@coral-xyz/anchor": "^0.29.0",
+    "@solana/web3.js": "^1.98.0",
     "dotenv": "^16.4.7",
     "kafkajs": "^2.2.4",
-    "@coral-xyz/anchor": "^0.29.0",
-    "@solana/web3.js": "^1.98.0"
+    "pg": "^8.13.3"
   }
 }

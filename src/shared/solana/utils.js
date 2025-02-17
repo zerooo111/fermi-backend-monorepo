@@ -1,17 +1,20 @@
 import { AnchorProvider, Program, Wallet } from "@coral-xyz/anchor";
-import { SOLANA_CONFIG } from "./config";
-import { IDL } from "./idl";
+import { Keypair, Connection } from "@solana/web3.js";
+import { SOLANA_CONFIG } from "./config.js";
+import { IDL } from "./idl.js";
 
 export async function getFermiProgram(customWallet) {
   try {
     const conn = new Connection(SOLANA_CONFIG.RPC_URL);
-    // Verify connection 
+    // Verify connection
     const version = await conn.getVersion();
     if (!version) {
       throw new Error("Failed to verify Solana connection");
     }
 
-    const provider = new AnchorProvider(conn, customWallet ?? new Wallet(new Keypair()), {
+    const wallet = customWallet ?? new Wallet(new Keypair());
+
+    const provider = new AnchorProvider(conn, wallet, {
       commitment: "confirmed",
     });
 
@@ -20,4 +23,3 @@ export async function getFermiProgram(customWallet) {
     throw new Error(`Failed to get Fermi program: ${error.message}`);
   }
 }
-
