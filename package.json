@@ -18,10 +18,7 @@
     "type": "git",
     "url": "git+https://github.com/zerooo111/fermi-backend-monorepo.git"
   },
-  "keywords": [
-    "fermi",
-    "solana"
-  ],
+  "keywords": ["fermi", "solana"],
   "author": "",
   "license": "MIT",
   "bugs": {
@@ -33,6 +30,8 @@
   },
   "dependencies": {
     "dotenv": "^16.4.7",
-    "kafkajs": "^2.2.4"
+    "kafkajs": "^2.2.4",
+    "@coral-xyz/anchor": "^0.29.0",
+    "@solana/web3.js": "^1.98.0"
   }
 }

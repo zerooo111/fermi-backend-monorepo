@@ -1,15 +1,15 @@
-import dotenv from "dotenv";
-import path from "node:path";
-import fs from "node:fs";
+import dotenv from 'dotenv';
+import path from 'node:path';
+import fs from 'node:fs';
 
 dotenv.config();
 
 function loadKafkaCert() {
-  const certPath = path.join(process.cwd(), "certs", "ca.pem");
+  const certPath = path.join(process.cwd(), 'certs', 'ca.pem');
   try {
-    return fs.readFileSync(certPath, "utf-8");
+    return fs.readFileSync(certPath, 'utf-8');
   } catch (error) {
-    console.warn("Warning: Failed to load Kafka certificate:", error.message);
+    console.warn('Warning: Failed to load Kafka certificate:', error.message);
     return null;
   }
 }
@@ -26,7 +26,7 @@ export const KAFKA_CONFIG = {
     },
   }),
   sasl: {
-    mechanism: "plain",
+    mechanism: 'plain',
     username: process.env.KAFKA_USERNAME,
     password: process.env.KAFKA_PASSWORD,
   },
@@ -38,9 +38,9 @@ export const KAFKA_CONFIG = {
 
 // Consumer group IDs
 export const KAFKA_FERMI_TRADES_CONSUMER_GROUP =
-  process.env.KAFKA_FERMI_TRADES_CONSUMER_GROUP || "fermi_trades_consumer";
+  process.env.KAFKA_FERMI_TRADES_CONSUMER_GROUP || 'fermi_trades_consumer';
 
 // Topics
 export const KAFKA_TOPICS = {
-  TRADES: process.env.KAFKA_FERMI_TRADES_TOPIC || "fermi_trades",
+  TRADES: process.env.KAFKA_FERMI_TRADES_TOPIC || 'fermi_trades',
 };

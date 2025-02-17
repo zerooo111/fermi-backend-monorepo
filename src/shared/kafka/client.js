@@ -1,5 +1,5 @@
-import { Kafka } from "kafkajs";
-import { KAFKA_CONFIG, KAFKA_FERMI_TRADES_CONSUMER_GROUP } from "./config.js";
+import { Kafka } from 'kafkajs';
+import { KAFKA_CONFIG, KAFKA_FERMI_TRADES_CONSUMER_GROUP } from './config.js';
 
 export function createKafkaClient() {
   const kafka = new Kafka(KAFKA_CONFIG);
@@ -10,10 +10,10 @@ export async function createKafkaProducer(kafka) {
   const producer = kafka.producer();
   try {
     await producer.connect();
-    console.log("Producer connected successfully");
+    console.log('Producer connected successfully');
     return producer;
   } catch (error) {
-    console.error("Failed to connect producer:", error);
+    console.error('Failed to connect producer:', error);
     throw error;
   }
 }
@@ -25,10 +25,10 @@ export async function createKafkaConsumer(kafka) {
   });
   try {
     await consumer.connect();
-    console.log("Consumer connected successfully");
+    console.log('Consumer connected successfully');
     return consumer;
   } catch (error) {
-    console.error("Failed to connect consumer:", error);
+    console.error('Failed to connect consumer:', error);
     throw error;
   }
 }
@@ -36,7 +36,7 @@ export async function createKafkaConsumer(kafka) {
 export async function sendMessage(producer, topic, message) {
   try {
     if (!message) {
-      throw new Error("Message cannot be empty");
+      throw new Error('Message cannot be empty');
     }
     const result = await producer.send({
       topic,
@@ -59,9 +59,7 @@ export async function subscribeToTopic(consumer, topic, callback) {
       eachMessage: async ({ topic, partition, message }) => {
         try {
           await callback(message);
-          console.log(
-            `Processed message from topic ${topic}, partition ${partition}`
-          );
+          console.log(`Processed message from topic ${topic}, partition ${partition}`);
         } catch (error) {
           console.error(`Error processing message from topic ${topic}:`, error);
           // Depending on your requirements, you might want to:
