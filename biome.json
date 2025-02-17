@@ -19,11 +19,10 @@
   "javascript": {
     "formatter": {
       "quoteStyle": "single",
-      "trailingComma": "es5",
       "semicolons": "always"
     }
   },
   "files": {
-    "ignore": ["node_modules", "dist", "build", ".git", "*.min.js"]
+    "ignore": ["node_modules", "dist", "build", ".git", "*.min.js", ".env", ".env.*"]
   }
 }

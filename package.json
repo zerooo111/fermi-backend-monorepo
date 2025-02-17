@@ -3,14 +3,16 @@
   "version": "1.0.0",
   "description": "Backend monorepo for fermi",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "start:api": "node src/api/index.js",
     "start:event-consumer": "node src/event-consumer/index.js",
     "start:event-listener": "node src/event-listener/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
+    "test:kafka": "node src/shared/kafka/test.js",
     "format": "biome format --write .",
     "lint": "biome lint .",
-    "check": "biome check --apply ."
+    "check": "biome check --write ."
   },
   "repository": {
     "type": "git",
@@ -28,5 +30,9 @@
   "homepage": "https://github.com/zerooo111/fermi-backend-monorepo#readme",
   "devDependencies": {
     "@biomejs/biome": "^1.9.4"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "kafkajs": "^2.2.4"
   }
 }
