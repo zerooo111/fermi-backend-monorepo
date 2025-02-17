@@ -1,0 +1,32 @@
+{
+  "name": "fermi-backend-monorepo",
+  "version": "1.0.0",
+  "description": "Backend monorepo for fermi",
+  "main": "index.js",
+  "scripts": {
+    "start:api": "node src/api/index.js",
+    "start:event-consumer": "node src/event-consumer/index.js",
+    "start:event-listener": "node src/event-listener/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "format": "biome format --write .",
+    "lint": "biome lint .",
+    "check": "biome check --apply ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zerooo111/fermi-backend-monorepo.git"
+  },
+  "keywords": [
+    "fermi",
+    "solana"
+  ],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zerooo111/fermi-backend-monorepo/issues"
+  },
+  "homepage": "https://github.com/zerooo111/fermi-backend-monorepo#readme",
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4"
+  }
+}
