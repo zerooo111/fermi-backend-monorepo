@@ -1,15 +1,16 @@
 import express from "express";
 import cors from "cors";
-import { handleHealth } from "./routes/health.js";
-import { registerCandlesRoutes } from "./routes/candles.js";
+import { registerRoutes } from "./routes/index.js";
 
 export const createServer = () => {
   const app = express();
-  app.use(cors());
 
-  // Register routes
-  app.get("/health", handleHealth);
-  registerCandlesRoutes(app);
+  // Middleware
+  app.use(cors());
+  app.use(express.json());
+
+  // Register all routes
+  registerRoutes(app);
 
   return app;
 };

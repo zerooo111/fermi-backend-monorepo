@@ -1,29 +1,10 @@
 import { getTsdbClient } from "../shared/tsdb/client.js";
 import { createServer, startServer } from "./server.js";
 
-let server;
-let tsdbClient;
-
-const shutdown = async () => {
-  console.log("Shutting down gracefully...");
-  if (server) {
-    server.close(() => console.log("Express server closed"));
-  }
-  if (tsdbClient) {
-    await tsdbClient.end();
-    console.log("Database connection closed");
-  }
-  process.exit(0);
-};
-
-// Handle process exits
-process.on("SIGTERM", shutdown);
-process.on("SIGINT", shutdown);
-
 const main = async () => {
   try {
     // Initialize global tsdb client
-    tsdbClient = await getTsdbClient();
+    const tsdbClient = await getTsdbClient();
     await tsdbClient.connect();
     console.log("Connected to TSDB");
 
@@ -32,10 +13,21 @@ const main = async () => {
     app.locals.tsdbClient = tsdbClient;
 
     // Start the server
-    server = await startServer(app);
+    const server = await startServer(app);
+
+    // Handle graceful shutdown
+    const shutdown = async () => {
+      console.log("Shutting down gracefully...");
+      server.close(() => console.log("Express server closed"));
+      await tsdbClient.end();
+      console.log("Database connection closed");
+      process.exit(0);
+    };
+
+    process.on("SIGTERM", shutdown);
+    process.on("SIGINT", shutdown);
   } catch (error) {
     console.error("Failed to start the server:", error);
-    await shutdown();
     process.exit(1);
   }
 };

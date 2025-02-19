@@ -1,5 +1,5 @@
 import { query } from "../../shared/tsdb/client.js";
-import { validateCandlesRequest } from "../middleware/validators.js";
+import { validateCandlesRequest } from "../middleware/index.js";
 
 export const handleGetCandles = async (req, res) => {
   const startTime = process.hrtime();
@@ -85,6 +85,4 @@ export const handleGetCandles = async (req, res) => {
   }
 };
 
-export const registerCandlesRoutes = (app) => {
-  app.get("/api/v1/candles", validateCandlesRequest, handleGetCandles);
-};
+
