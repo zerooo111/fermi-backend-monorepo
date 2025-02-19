@@ -1,6 +1,6 @@
 -- Create table with a unique constraint
 CREATE TABLE IF NOT EXISTS trades (
-  id UUID,
+  signature TEXT NOT NULL,
   time TIMESTAMPTZ NOT NULL,
   market TEXT NOT NULL,
   taker_side SMALLINT NOT NULL CHECK (taker_side BETWEEN 0 AND 1),

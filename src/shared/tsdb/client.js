@@ -6,12 +6,17 @@ import { TSDB_CONFIG } from "./config.js";
  * @param {string} connectionString - The connection string for the tsdb
  * @returns {Promise<Client>} A promise that resolves to the tsdb client
  */
-export async function createTsdbClient(connectionString) {
-  const client = new pg.Client({
+export function getTsdbClient(connectionString) {
+  if (getTsdbClient._client) {
+    console.log("Using existing tsdb client");
+    return getTsdbClient._client;
+  }
+
+  getTsdbClient._client = new pg.Client({
     connectionString: connectionString || TSDB_CONFIG.DB_URL,
   });
 
-  return client;
+  return getTsdbClient._client;
 }
 
 /**
