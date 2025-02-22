@@ -1,8 +1,8 @@
 import {
   getKafkaClient,
   sendFillLogMessageToKafka,
-} from "../shared/kafka/client";
-import { getFermiProgram } from "../shared/solana/utils";
+} from "../shared/kafka/client.js";
+import { getFermiProgram } from "../shared/solana/utils.js";
 
 class TradeEventListener {
   constructor() {

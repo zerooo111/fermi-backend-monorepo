@@ -11,9 +11,9 @@
 import {
   KAFKA_FERMI_TRADES_CONSUMER_GROUP,
   KAFKA_TOPICS,
-} from "../shared/kafka/config";
-import { getTsDbClient } from "../shared/tsdb/client";
-import { getKafkaClient } from "../shared/kafka/client";
+} from "../shared/kafka/config.js";
+import { getTsdbClient } from "../shared/tsdb/client.js";
+import { getKafkaClient } from "../shared/kafka/client.js";
 
 class TradeEventConsumer {
   constructor() {
@@ -142,15 +142,18 @@ class TradeEventConsumer {
       this.consumer = kafka.consumer({
         groupId: KAFKA_FERMI_TRADES_CONSUMER_GROUP,
       });
-      this.tsdbClient = getTsDbClient();
+      this.tsdbClient = getTsdbClient();
 
       // Connect clients
       await Promise.all([this.consumer.connect(), this.tsdbClient.connect()]);
       console.log("Connected to Kafka consumer and TSDB");
 
-      // Subscribe to topic
-      await this.consumer.subscribe({ topic: KAFKA_TOPICS.FERMI_TRADES });
-      console.log("Subscribed to topic:", KAFKA_TOPICS.FERMI_TRADES);
+      // Subscribe to topic - Fix: Pass topics array
+      await this.consumer.subscribe({
+        topics: [KAFKA_TOPICS.TRADES],
+        fromBeginning: true,
+      });
+      console.log("Subscribed to topics:", [KAFKA_TOPICS.TRADES]);
 
       // Bind the message processor to this instance
       const boundProcessor = this.processMessage.bind(this);
